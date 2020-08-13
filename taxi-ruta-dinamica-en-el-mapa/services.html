@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0">
+    <title>Plantilla</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <!--
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbkV9FFXMySB7oOO1CfqoD-503Xw_YlhM"></script>
+    -->
+</head>
+<body onload="limpiarlogin()" background="img/fondotaxi2.jpg">
+    <!-- barra de navegación -->
+    <div class="container">        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light card2">
+            <a class="navbar-brand" href="index.html" style="color:#FFFFFF;">
+                <img src="img/logo3.png" width="170">
+                Home             
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="#" style="color:#FFFFFF;">Services</a>                        
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="contacts.html" style="color:#FFFFFF;">Contacts</a>                          
+                    </li>                    
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="aboutus.html" style="color:#FFFFFF;">About Us</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Search" id="emai">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Password" aria-label="Search" id="pass">
+                    <button class="btn btn-dark my-2 my-sm-0" type="button" onclick="login()">Log in</button> 
+                </form>
+            </div>            
+        </nav>        	
+        <div class="d-flex justify-content-center links card2">
+			Don't have an account?<a href="register.html" class="a">Sign Up</a>
+		</div>	
+		<div >
+			<p class="r" id="pemail" style="width : 300px"></p>
+			<p class="r" id="ppassw" style="width : 300px"></p>	
+			<p class="r" id="nobd" style="width : 300px"></p>							
+        </div>    
+		<h2 class="navigator">Services</h2>
+    </div>   
+
+    
+   
+	<div>
+    	<div class="input-group"> 	
+	    	 	
+			<div class="col-xs-12 col-mb-6">
+				<img style="float:right; margin-left:30px; margin-top:30px; margin-bottom:30px;" class="img-fluid" src="img/image6.jpeg" width="600" height="400" />
+				    <h2 class="title">Our Services</h2>
+					<p class="big">Let 123Shuttle in Fort Lauderdale Florida take you to your airport or hotel for a hassle-free transportation experience. I offer an airport shuttle service from the Fort Lauderdale–Hollywood International Airport to airport hotels, Port Of Miami, Port Everglades, South Beach, and Miami Beach.</p>
+					<p class="big">
+					If you prefer to receive service in a town car, SUV, or minivan, please specify your preferred vehicle when you contact me by phone or text message.
+					*Note: We accept credit cards as a mode of payment.
+					</p> 
+				</img >
+			</div> 			
+		</div> 
+	</div>
+	<div class="column mcb-column one column_column  column-margin-">
+		<div class="column_attr clearfix align_center"  style=" background-color:#d52d32; padding:10px;">
+			<h4 style="color:#ffffff;">$15 per person to South Beach or Port of Miami. Minimum 6 people.<br>It will expire 12/18
+			</h4> 
+		</div> 
+	</div> 
+
+	<footer id="Footer" class="clearfix">
+		<div class="widgets_wrapper" style="">
+			<div class="container"><div class="column one">
+				<aside id="text-2" class="widget widget_text">	
+					<div class="textwidget">
+						<p><img class="alignnone wp-image-86 " src="img/cc.png" alt="" width="225" height="54" /></p>
+					</div>
+				</aside> 
+			</div> 
+		</div> 
+		<div class="footer_copy">
+			<div class="container">
+				<div class="column one">
+
+					<a id="back_to_top" class="button button_js" href=""><i class="icon-up-open-big"></i></a>					
+					<!-- Copyrights -->
+					<div class="copyright">
+						© 2019 123 Shuttle. All Rights Reserved. 					</div>
+					
+					<ul class="social"></ul>							
+				</div>
+			</div>
+		</div>	
+	</footer>
+
+
+
+</div>
+    <script type="text/javascript">       
+		function login()
+		{ 			
+    		var emai = $('#emai').val();    		
+    		var pass = $('#pass').val();
+    		
+    		var okemail = false;
+    		var okpassw = false; 
+    		document.getElementById("pemail").innerHTML = ""; 
+    		document.getElementById("ppassw").innerHTML = ""; 
+    		document.getElementById("nobd").innerHTML = "";    		  		
+    		if(emai.trim() == '' )
+    		{           		
+        		$('#pemail').height('10px');        		
+        		document.getElementById("pemail").innerHTML = "Email is required.";         		
+    		}else
+    		{
+    			okemail = true;
+    		}
+
+    		if(pass.trim() == '' )
+    		{    	
+    			$('#ppassw').height('10px');
+        		document.getElementById("ppassw").innerHTML = "Password is required.";        		
+    		}else
+    		{
+    			okpassw=true;
+    		}
+
+    		if(!okemail||!okpassw)
+    		{    
+
+    		    if(!okemail)
+    		    	$('#emai').focus();
+    		    else if(!okpassw)
+    		    	$('#pass').focus();
+    		}else{
+    					
+    			//document.getElementById("diverror").className = "error";    			
+        		$.ajax({
+            		type:'POST',
+            		url:'login.php',
+            		data:'registrarse=1&emai='+emai+'&pass='+pass,
+            		/*beforeSend: function () 
+            		{
+                		$('.submitBtn').attr("disabled","disabled");
+                		$('.modal-body').css('opacity', '.5');
+            		},*/
+            		success:function(msg)
+            		{                    		       			
+                		if(msg == 'ok')
+                		{
+                   		 	$('#email').val('');
+                    		$('#phone').val('');
+                    		$('#password').val('');
+                    		$('#cpassword').val('');
+                    		window.location.href = "pagina.html";
+                   			//$('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we will get back to you soon.</p>');
+                		}else
+                		{                		
+                    		document.getElementById("nobd").innerHTML = "Wrong email/password combination";
+                    		//document.getElementById("diverror").className = "error3";
+                		}                		
+            		}
+        		});
+    		}
+    		return false;
+		}
+		function limpiarlogin()
+		{
+			$('#emai').val('');
+            $('#pass').val('');            
+		}
+    </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

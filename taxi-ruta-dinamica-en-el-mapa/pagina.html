@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0">
+    <title>Plantilla</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbkV9FFXMySB7oOO1CfqoD-503Xw_YlhM"></script>
+</head>
+<body onload="limpiarformulariomapa()" background="img/fondotaxi2.jpg">
+    <!-- barra de navegación -->
+    <div class="container">        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light card2">
+            <a class="navbar-brand" href="index.html" style="color:#FFFFFF;">
+                <img src="img/logo3.png" width="170">
+                Home             
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="services.html" style="color:#FFFFFF;">Services</a>                     
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="contacts.html" style="color:#FFFFFF;">Contacts</a>                      
+                    </li>                    
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="aboutus.html" style="color:#FFFFFF;">About Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-center links card2">
+					<a href="index.html" class="r" onclick="logout()">Logout</a>
+				</div>	
+            </div>
+        </nav>
+        <h2 class="navigator">You can choose the destination where you want to travel.</h2>
+        <img class="alignnone wp-image-86 " src="img/flechaAbajo.png" style="margin-right:3px; margin-top:50px;alt="" width="175" height="300" />
+    </div>
+       
+    <div class="form-group col-12">
+            <hr>
+    </div>
+   <!-- mapa -->
+    <div class="container-fluid">
+        <section class="main row" >
+            
+            <div class="input-group col-xs-12 col-mb-5 input-group-lg "id="mapa" style="width: 900px;height: 600px;">
+                --ACA VA NUESTRO MAPA--
+            </div> 
+            <div class="col-md-3 offset-md-0.5">
+            <form>                
+                <div class="input-group col-xs-12 col-mb-7 input-group-lg">
+                	<div class="custom-control custom-radio">
+  						<input type="radio" class="custom-control-input" id="write_address" name="defaultExampleRadios" checked onclick="writeAddress()">
+  						<label class="custom-control-label" for="write_address">Write Address In Form</label>
+					</div>
+                	<!-- Default checked checked-->
+					<div class="custom-control custom-radio">
+  						<input type="radio" class="custom-control-input" id="select_address" name="defaultExampleRadios" onclick="mostrar_mapa();selectAddress()">
+  						<label class="custom-control-label" for="select_address">Select Address On The Map</label>
+					</div>					
+                	<!-- Default unchecked -->
+					<div class="custom-control custom-radio">
+  						<input type="radio" class="custom-control-input" id="trace_route" name="defaultExampleRadios" onclick=" trazar_ruta(); traceRoute()">
+  						<label class="custom-control-label" for="trace_route">Trace Route</label>
+					</div>
+					<div class="form-group col-12">
+            			<hr>
+   					</div>
+                    <div class="form-group">
+                        <label for="address">Pickup Address:</label>
+                        <input type="address" class="form-control" id="address1">                   
+                    </div>                  
+                </div>
+                <div class="input-group col-xs-12 col-mb-5 input-group-lg">
+                    <div class="form-group">
+                        <label for="address">Destination Address:</label>
+                        <input type="address" class="form-control" id="address2">                   
+                    </div>                  
+                </div>
+                <div class="input-group col-xs-12 col-mb-5 input-group-lg">
+                    <div class="form-group">
+                        <label for="address">Pickup Date:</label>
+                        <input type="date" class="form-control" id="date">                   
+                    </div>                  
+                </div>
+                <div class="input-group col-xs-12 col-mb-5 input-group-lg">
+                    <div class="form-group">
+                        <label for="address">Pickup Time:</label>
+                        <input type="time" class="form-control" id="time">                   
+                    </div>                  
+                </div>
+                <div class="input-group col-xs-12 col-mb-5 input-group-lg">
+                    <div class="form-group">
+                        <label for="Number">Amount of People:</label>
+                        <input type="Number" class="form-control" id="number">                  
+                    </div>                  
+                </div>                
+                <div>
+                    <button class="btn btn-success" onclick="return orderNow()">Order Now</button>
+                </div>
+            </form>
+            </div>  
+                      
+        </section>
+    </div> 
+    <div class="form-group col-12">
+            <hr>
+    </div>
+    <!-- Carrucel y tabla -->
+    <div class="container-fluid">
+        <section class="main row" >          
+             
+            <!-- tabla -->
+    		<div class="col-xs-12 col-md-12">        
+        		<h2>Your Reservations</h2>
+        		<p>Here you can see and delete your reservations:</p>            
+        		<table class="table table-borderless table-responsive text-centered" id="idtabla">
+            		<thead>
+                		<tr>
+	                		<th scope="col">See Route</th>
+    	            		<th scope="col">Remove Order</th>
+        	            	<th scope="col">Pickup Address</th>
+            	        	<th scope="col">Destination Address</th>
+                	    	<th scope="col">Pickup Date</th>
+                    		<th scope="col">Pickup Time</th>
+                    		<th scope="col">Amount of People</th>
+                    		<th scope="col">Distance (km)</th>
+                		</tr>
+            		</thead>
+            		<tbody>
+                		     
+            		</tbody>
+        		</table>  
+    		</div>
+    		<div id="carouselExampleControls" class="carousel slide col-xs-12 col-md-5" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img id="img1"class="d-block w-100 img-fluid" src="img/03.jpg" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100 img-fluid" src="img/008.jpg" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100 img-fluid" src="img/007.jpg" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div> 
+     
+    
+    <script type="text/javascript">
+       
+        mostrar_mapa();
+        //trazar_ruta();
+        var map;
+        var marker1;
+        var marker2;
+        var origen;
+        var destino;
+        function mostrar_mapa()
+        {
+            // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar.
+            map = new google.maps.Map(document.getElementById('mapa'), {
+                center: {lat: 23.1165, lng: -82.3882}, //centre mi mapa en la Habana
+                scrollwheel: true,
+                zoom: 10,
+                zoomControl: true,
+                rotateControl : false,
+                mapTypeControl: true,
+                streetViewControl: false,
+            });
+            //alert(origen);
+            //alert(destino);
+            if((origen==null&&destino==null)||(tiene_letras(origen)&&tiene_letras(destino)))
+            {
+            	origen=new google.maps.LatLng(23.155782,-82.282174);  
+                destino=new google.maps.LatLng(23.13552,-82.38018);
+            }             
+            // Creamos dos marcadores.
+            marker1 = new google.maps.Marker({
+                position: origen,//{lat: 23.155782, lng: -82.282174},
+                draggable: true
+             });
+            marker2 = new google.maps.Marker({
+                position: destino,//{lat: 23.13552, lng: -82.38018}, 
+                draggable: true
+            });
+            // Le asignamos el mapa a los marcadores.
+            marker1.setMap(map);
+            marker2.setMap(map);
+            return false;//para que no se recargue la pagina el ejecutar el boton
+        }    
+        function trazar_ruta()
+        {   
+            //var ori;
+            //var des;
+            //alert(document.getElementById("write_address").checked);
+            //alert(document.getElementById("select_address").checked);
+            if(document.getElementById("write_address").checked==true)
+            {
+            	origen=document.getElementById("address1").value; 
+                destino=document.getElementById("address2").value;
+
+            }else if(document.getElementById("select_address").checked==true)
+            {
+            	origen=marker1.getPosition();
+                destino=marker2.getPosition();
+            }else if(document.getElementById("trace_route").checked==true)
+            {
+            	if((document.getElementById("address1").value=="")&&(document.getElementById("address2").value=="") )
+            	{
+            		origen=marker1.getPosition();
+                    destino=marker2.getPosition();
+            	}else
+            	{
+            	    origen=document.getElementById("address1").value; 
+                    destino=document.getElementById("address2").value;	
+            	}
+            	
+
+            }    
+            //alert(origen);
+            //alert(destino); 	
+            // Creamos un objeto mapa y especificamos el elemento DOM donde se va a mostrar.
+            map = new google.maps.Map(document.getElementById('mapa'), {
+                center: {lat: 23.1165, lng: -82.3882}, //centre mi mapa en la Habana
+                scrollwheel: true,
+                zoom: 10,
+                zoomControl: true,
+                rotateControl : false,
+                mapTypeControl: true,
+                streetViewControl: false,
+            });
+            var objConfDR={
+                map:map
+            }
+            var objConfDS={
+                //origin:'Coopelia, Habana',
+                //origin:'Versalles, Matanzas',
+                //destination:'Alamar,Habana del Este, Habana',
+                origin:origen,
+                destination:destino,
+                travelMode:google.maps.TravelMode.DRIVING
+            } 
+            serviceDisplay = new google.maps.DirectionsService();
+            directionsDisplay = new google.maps.DirectionsRenderer(objConfDR);
+
+            serviceDisplay.route(objConfDS,fnRutear);
+
+            function fnRutear(resultados,status){
+                if(status=='OK'){
+                    directionsDisplay.setDirections(resultados);
+                }else{
+                alert('error '+status);
+                }    
+            }
+            
+            return false;//para que no se recargue la pagina el ejecutar el boton 
+        }
+        function selectAddress()
+        {
+
+            document.getElementById("select_address").checked = true;
+            document.getElementById("trace_route").checked = false;
+            document.getElementById("write_address").checked = false;
+            document.getElementById("address1").disabled = true;
+            document.getElementById("address2").disabled = true;
+            document.getElementById("address1").value = "";
+            document.getElementById("address2").value = "";  	         
+        } 
+        function writeAddress()
+        {
+        	document.getElementById("write_address").checked = true;
+            document.getElementById("select_address").checked = false;
+            document.getElementById("trace_route").checked = false;
+            document.getElementById("address1").disabled = false;
+            document.getElementById("address2").disabled = false;
+        }
+        function traceRoute()
+        {        	
+        	//if(document.getElementById("write_address").checked==false)
+        	//{	
+        	 //   document.getElementById("address1").value = "";
+               // document.getElementById("address2").value = "";  
+            //}
+            
+        	document.getElementById("trace_route").checked = true;
+            document.getElementById("write_address").checked = false;
+            document.getElementById("select_address").checked = false;   
+            document.getElementById("address1").disabled = true;
+            document.getElementById("address2").disabled = true;                    
+        }         
+        var letras="abcdefghyjklmnñopqrstuvwxyz";
+
+		function tiene_letras(texto)
+		{   
+   			texto = texto.toLowerCase();
+   			for(i=0; i<texto.length; i++)
+   			{
+      			if (letras.indexOf(texto.charAt(i),0)!=-1)
+      			{
+         		return 1;
+      			}
+   			}
+   		return 0;
+		}  
+		function orderNow()
+        {       
+            //console.log("asdasdasd"); 
+             
+            var address1 = $('#address1').val();
+    		var address2 = $('#address2').val();
+    		var date = $('#date').val();
+    		var time = $('#time').val();  		
+    		var number = $('#number').val();
+    		/*
+    		var okaddress1=false;
+    		var okaddress2=false;
+    		var okdate=false;
+    		var oktime=false;
+    		var oknumber=false;
+    		if(address1.trim() == '' )
+    		{    				  			
+        		alert('Please enter pickup address.');        		
+    		}else
+    		    okaddress1=true;
+    		if(address2.trim() == '' )
+    		{    				  			
+        		alert('Please enter destination address.');        		
+    		}else
+    		    okaddress2=true;
+    		if(date.trim() == '' )
+    		{    				  			
+        		alert('Please enter pickup date.');        		
+    		}else
+    		    okdate=true;
+    		if(time.trim() == '' )
+    		{    				  			
+        		alert('Please enter pickup time.');        		
+    		}else
+    		    oktime=true;
+    		if(number.trim() == '' )
+    		{    				  			
+        		alert('Please enter amount of people.');        		
+    		}else
+    		    oknumber=true;
+    		if(!okaddress1||!okaddress2||!okdate||!oktime||!oknumber)  
+    		{
+    			if(!okaddress1)
+    		{    				  			
+        		alert('Please enter pickup time.');        		
+    		}
+    		}  */
+    		$.ajax({
+            		type:'POST',
+            		url:'reservation.php',
+            		data:'contactreservation=1&address1='+address1+'&address2='+address2+'&date='+date+'&time='+time+'&number='+number,
+            		/*beforeSend: function () 
+            		{
+                		$('.submitBtn').attr("disabled","disabled");
+                		$('.modal-body').css('opacity', '.5');
+            		},*/
+            		success:function(msg)
+            		{            			
+                		if(msg == 'ok')
+                		{
+                   		 	$('#address1').val('');
+                    		$('#address2').val('');
+                    		$('#date').val('');
+                    		$('#time').val('');
+                    		$('#number').val('');
+                    		insertarcolumna();
+                   			//$('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we will get back to you soon.</p>');
+                		}else
+                		{
+                    		$('.statusMsg').html('<span style="color:red;" width:350px;>Some problem occurred, please try again.</span>');
+                    		document.getElementById("diverror").className = "error3";
+                		}                		
+            		}
+        		});
+
+            trazar_ruta();  
+            return false;
+        }
+        var posicionCampo=1;
+        function insertarcolumna()
+		{  
+		    //$("#idtabla").remove();
+		    var Table = document.getElementById("idtabla"); 
+		    Table.innerHTML = "<thead><tr><th scope='col'>Remove Order</th><th scope='col'>See Route</th><th scope='col'>Pickup Address</th><th scope='col'>Destination Address</th><th scope='col'>Pickup Date</th><th scope='col'>Pickup Time</th><th scope='col'>Amount of People</th><th scope='col'>Distance (km)</th><th class='idborrar'scope='col'>ID</th></tr></thead>"; 
+		    var id; 
+			var address1;
+    		var address2;
+    		var date;
+    		var time;  		
+    		var number;
+    		var distance;  		
+    		var price;
+    		array=new Array();
+			$.ajax({
+            		type:'POST',
+            		async:false,
+            		url:'llenartabla.php',            		
+            		success:function(data)
+            		{   
+            			//console.log(data);
+            		    var resultados = JSON.parse(data);       			
+                		//console.log(resultados);
+                		//console.log(resultados.length);
+                		/*address1 = resultados.address1;
+    					address2 = resultados.address2;
+    					date = resultados.data;
+    					time = resultados.time;  		
+    					number = resultados.number;
+    					distance = resultados.distance;  		
+    		            price = resultados.price;*/
+    		            for (var i = 0; i < resultados.length; i++) {
+    		            	array[i]=JSON.parse(resultados[i]);
+    		            }
+    		            //console.log(array);
+            		}
+        		});
+			var cont=0;
+			while(cont < array.length)
+			{
+				id  = array[cont].id;
+				address1 = array[cont].address1;
+				address2 = array[cont].address2;
+    			date = array[cont].data;
+    			time = array[cont].time;  		
+    			number = array[cont].number;
+    			distance = array[cont].distance;  		
+    		    price = array[cont].price;
+
+    		    cont++;
+				nuevaFila = document.getElementById("idtabla").insertRow(-1); 
+            	nuevaFila.id=posicionCampo;    
+ 
+ 	           	nuevaCelda=nuevaFila.insertCell(-1);
+    	        nuevaCelda.innerHTML="<td><button class='btn btn-info' onclick='SomeDeleteRowFunction(this)'></td>";
+        	    nuevaCelda=nuevaFila.insertCell(-1);
+            	nuevaCelda.innerHTML="<td><button class='btn btn-info'></td>";
+	            nuevaCelda=nuevaFila.insertCell(-1);
+    	        nuevaCelda.innerHTML="<td>"+address1+"</td>";
+        	    nuevaCelda=nuevaFila.insertCell(-1);
+            	nuevaCelda.innerHTML="<td>"+address2+"</td>";
+	            nuevaCelda=nuevaFila.insertCell(-1);
+    	        nuevaCelda.innerHTML="<td>"+date+"</td>";
+        	    nuevaCelda=nuevaFila.insertCell(-1);
+            	nuevaCelda.innerHTML="<td>"+time+"</td>";
+	            nuevaCelda=nuevaFila.insertCell(-1);
+    	        nuevaCelda.innerHTML="<td>"+number+"</td>";
+        	    nuevaCelda=nuevaFila.insertCell(-1);
+            	nuevaCelda.innerHTML="<td>"+distance+"</td>";
+            	nuevaCelda=nuevaFila.insertCell(-1);
+            	nuevaCelda.innerHTML="<td>"+id+"</td>";
+           		posicionCampo++;
+
+
+			}
+			$(".idborrar").toggle();
+			$('td:nth-child(9)').toggle();
+            return false;
+ 
+		}
+		function SomeDeleteRowFunction(o) {
+            var p=o.parentNode.parentNode.id;
+            //console.log(p);
+        	$.ajax({
+            		type:'POST',            		
+            		url:'eliminarreservacion.php',  
+            		data:'eliminarreservacion=1&id='+p,          		
+            		success:function(msg)
+            		{   alert(msg);   
+            			if(msg=='ok')
+            			{alert('i');
+   							insertarcolumna();
+            			}else
+            			alert("ocurrio un error");            			
+            		}
+        		});
+    }
+		
+		function limpiarformulariomapa()
+		{
+			$('#address1').val('');
+            $('#address2').val('');
+            $('#date').val('');
+            $('#time').val('');
+            $('#number').val('');
+            insertarcolumna()
+		}
+		function logout()
+		{
+			$.ajax({
+            		type:'POST',
+            		url:'logout.php',
+            		data:'logout'      		
+            		
+        		});
+		}	
+    </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

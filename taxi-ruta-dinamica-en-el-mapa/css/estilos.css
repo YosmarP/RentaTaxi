@@ -1,0 +1,291 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+html {
+  height: 100%;
+  /*Image only BG fallback*/
+  
+  /*background = gradient + image pattern combo*/
+  background: 
+    linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+
+body {
+  font-family: montserrat, arial, verdana;
+}
+/*form styles*/
+#msform {
+  width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  position: relative;
+}
+#msform fieldset {
+  background: white;
+  border: 0 none;
+  border-radius: 3px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 0 10%;
+  
+  /*stacking fieldsets above each other*/
+  position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+  display: none;
+}
+/*inputs*/
+#msform input, #msform textarea {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #2C3E50;
+  font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+  width: 100px;
+  background: #27AE60;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 1px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+/*headings*/
+.fs-title {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #2C3E50;
+  margin-bottom: 10px;
+}
+.fs-subtitle {
+  font-weight: normal;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+}
+#progressbar li {
+  list-style-type: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 33.33%;
+  float: left;
+  position: relative;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 20px;
+  line-height: 20px;
+  display: block;
+  font-size: 10px;
+  color: #333;
+  background: white;
+  border-radius: 3px;
+  margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{
+  background: #27AE60;
+  color: white;
+}
+.error{
+  width: 0%;
+  margin: 0px auto;
+  padding: 0px;
+  border: 0px solid #FFFFFF;  
+  color: #FFFFFF;
+  background: #FFFFFF;
+  border-radius: 0px;
+  text-align: left;
+}
+.error2{
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
+  border: 2px solid #a94442;  
+  color: #a94442;
+  background: #f2dede;
+  border-radius: 5px;
+  text-align: left;
+}
+.error3{
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
+  border: 2px solid #FFFFFF;  
+  color: #FFFFFF;
+  background: #FFFFFF;
+  border-radius: 5px;
+  text-align: left;
+}
+
+
+
+
+
+/*para el ligin*/
+/*background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');*/
+html,body{
+
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+.card2{
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+/*.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}*/
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+.a {
+color: #ffff00;
+}
+.r {
+color: #ff0000;
+}
+.title {
+text-align: center;
+font-weight: bolder;
+margin-top : 40px;
+margin-bottom: 40px;
+font-family: "Homer Simpson", cursive;
+color: #3D3D3D;
+}
+.big {
+text-align: center;
+font-family: "Palatino", sans-serif;
+margin-right: 20px;
+margin-left : 20px;
+color: #777;
+}
+.big2 {
+font-family: "Palatino", sans-serif;
+margin-right: 40px;
+margin-left : 40px;
+color: #777;
+}
+.navigator {
+text-align: center;
+font-family: sans-serif;
+font-weight: bolder;
+font-size : 50px;
+color: #FFDE00;
+background-color: rgba(0,0,0,0.5) !important;
+}

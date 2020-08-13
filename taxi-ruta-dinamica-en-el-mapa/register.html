@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0">
+    <title>Plantilla</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbkV9FFXMySB7oOO1CfqoD-503Xw_YlhM"></script>
+</head>
+<body onload="limpiarformulario()" background="img/fondotaxi2.jpg">
+    <!-- barra de navegación -->
+    <div class="container">        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light card2">
+            <a class="navbar-brand" href="index.html" style="color:#FFFFFF;">
+                <img src="img/logo3.png" width="170">
+                Home             
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="services.html" style="color:#FFFFFF;">Services</a>                     
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="contacts.html" style="color:#FFFFFF;">Contacts</a>                      
+                    </li>                    
+                    <li class="nav-item active">
+                        <a class="nav-link disabled" href="aboutus.html" style="color:#FFFFFF;">About Us</a>
+                    </li>
+                </ul>                
+            </div>
+        </nav>
+
+        <!-- Carrucel y checkin -->
+    	<div class="container-fluid">
+        	<section class="main row" >           
+            
+          	 	<!-- multistep form -->
+           	 	<form id="msform" action="" method="post"> 
+                	<!-- display de validaion de errores -->
+                
+                	<!-- fieldsets -->
+					<fieldset class="card2"> 					
+                    	<h2 class="fs-title" style="color:#FFFFFF;">Create your account</h2>  
+                    	<input type="email" name="email" placeholder="Email" id="email" style="height : 10px"/>
+                    	<input type="tel" name="phone" placeholder="Phone Number" id="phone" style="height : 10px"/>
+                    	<input type="password" name="pass" placeholder="Password" id="password" style="height : 10px"/>
+                    	<input type="password" name="cpass" placeholder="Confirm Password" id="cpassword" style="height : 10px"/>    
+                    	<div class="error" id="diverror">
+							<p id="p1"></p>
+							<p id="p2"></p>
+							<p id="p3"></p>
+							<p class="statusMsg"></p>
+                    	</div>                
+                    	<button type="button" class="btn btn-primary submitBtn" onclick="checkin()">Check In</button>           
+
+                  	<!--  <input  name="checkin" class="check in action-button" value="Check In" onclick="return checkin()"/>-->
+                	</fieldset>  
+            	</form>     
+           
+        	</section>
+    	</div>   
+
+    </div>    
+    <script type="text/javascript">       
+		function checkin()
+		{ 
+			//console.log("asdasdasd");
+    		var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+    		var reg2 = /^([0-9]+){9}$/;	
+    		var email = $('#email').val();
+    		var phone = $('#phone').val();
+    		var password = $('#password').val();
+    		var cpassword = $('#cpassword').val();
+    		document.getElementById("p1").innerHTML = "";
+    		document.getElementById("p2").innerHTML = "";
+    		document.getElementById("p3").innerHTML = "";
+    		var ok1 = false;
+    		var ok2 = false;
+    		var ok3 = false;
+    		$('#p1').height('0px');
+    		$('#p2').height('0px');
+    		$('#p3').height('0px');
+    		//alert(email);
+    		//alert(phone);
+    		//alert(password);
+    		//alert(cpassword);
+    		
+    		if(email.trim() == '' )
+    		{           		
+        		$('#p1').height('10px');
+        		console.log($('#p1'));
+        		document.getElementById("p1").innerHTML = "Email is required.";
+        		$('#email').focus();
+        		//return false;
+    		}else if(email.trim() != '' && !reg.test(email))
+    		{
+    			$('#p1').height('10px');
+        		//alert('Please enter valid email.');
+        		document.getElementById("p1").innerHTML = "Please enter valid email.";
+        		$('#email').focus();
+        		//return false;
+    		}else
+    		{
+    			ok1=true;
+    		}
+
+    		if(phone.trim() == '' )
+    		{
+    			$('#p2').height('10px');
+        		//alert('Please enter your phone.');
+        		document.getElementById("p2").innerHTML = "Phone is required.";
+        		//$('#phone').focus();
+        		//return false;
+    		}else if(phone.trim() != '' && !reg2.test(phone))
+    		{
+    			$('#p2').height('10px');
+        		//alert('Please enter valid phone.');
+        		document.getElementById("p2").innerHTML = "Please enter valid phone.";
+        		//$('#phone').focus();
+        		//return false;
+    		}else
+    		{
+    			ok2=true;
+    		}
+
+    		if(password.trim() == '' )
+    		{    	
+    			$('#p3').height('10px');		  			
+        		//alert('Please enter your email.');
+        		document.getElementById("p3").innerHTML = "Password is required.";
+        		//$('#password').focus();
+        		//return false;
+    		}else if(password.trim() != cpassword.trim())
+    		{
+    			$('#p3').height('10px');
+        		//alert('Please enter valid email.');
+        		document.getElementById("p3").innerHTML = "The two pasword do not match.";
+        		//$('#cpassword').focus();
+        		//return false;
+    		}else
+    		{
+    			ok3=true;
+    		}
+
+    		if(!ok1||!ok2||!ok3)
+    		{    			
+    		    document.getElementById("diverror").className = "error2";
+    		    if(!ok1)
+    		    	$('#email').focus();
+    		    else if(!ok2)
+    		    	$('#phone').focus();
+    		    else if(!ok3)    		    	
+    		    	$('#password').focus();
+    		}else{
+    			$('#p1').height('0px');
+    			$('#p2').height('0px');
+    			$('#p3').height('0px');
+    			document.getElementById("diverror").className = "error";    			
+        		$.ajax({
+            		type:'POST',
+            		url:'register.php',
+            		data:'contactFrmSubmit=1&email='+email+'&phone='+phone+'&password='+password,
+            		/*beforeSend: function () 
+            		{
+                		$('.submitBtn').attr("disabled","disabled");
+                		$('.modal-body').css('opacity', '.5');
+            		},*/
+            		success:function(msg)
+            		{            			
+                		if(msg == 'ok')
+                		{
+                   		 	$('#email').val('');
+                    		$('#phone').val('');
+                    		$('#password').val('');
+                    		$('#cpassword').val('');
+                    		window.location.href = "pagina.html";
+                   			//$('.statusMsg').html('<span style="color:green;">Thanks for contacting us, we will get back to you soon.</p>');
+                		}else
+                		{
+                    		$('.statusMsg').html('<span style="color:red;" width:350px;>Some problem occurred, please try again.</span>');
+                    		document.getElementById("diverror").className = "error3";
+                		}                		
+            		}
+        		});
+    		}
+    		return false;
+		}
+		function limpiarformulario()
+		{
+			$('#email').val('');
+            $('#phone').val('');
+            $('#password').val('');
+            $('#cpassword').val('');
+		}
+    </script>
+    
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
